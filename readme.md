@@ -80,12 +80,12 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 请求参数
 | 参数名     | 类型   | 是否必须 | 描述                                | 示例值          |
 |------------|--------|:--------:|-----------------------------------|-----------------|
-| agent_id   | int64  |    是    | 运营商ID                            | 1               |
 | account    | string |    是    | 玩家账号                            | p47heuf32rhwi  |
-| nickname   | string |    否    | 玩家昵称                            | Nickname11      |
-| type       | int    |    是    | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1               |
+| agent_id   | int64  |    是    | 运营商ID                            | 1               |
 | ip         | string |    否    | 玩家IP                              | 127.0.0.1       |
+| nickname   | string |    否    | 玩家昵称                            | Nickname11      |
 | timestamp  | int64  |    是    | 发送请求的毫秒时间戳                      | 1706941836000      |
+| type       | int    |    是    | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1               |
 | sign       | string |    是    | 签名，详见签名规则                    |                 |
 
 
@@ -124,13 +124,13 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 请求参数
 | 参数名    | 类型    | 是否必须 | 描述                    | 示例值              |
 |------------|---------|:--------:|-----------------------|---------------------|
-| agent_id   | int64   |    是    | 运营商ID               | 1                   |
 | account    | string  |    是    | 玩家账号                | p47heuf32rhwi      |
-| type       | int     |    是    | 类型(必填) 1-转出 2-转入 | 1                   |
+| agent_id   | int64   |    是    | 运营商ID               | 1                   |
 | amount     | string  |    是    | 转入转出金额            | 127.22              |
+| remark     | string  |    否    | 备注                    |                     |
 | t_order    | string  |    是    | 三方订单号              | O2024012268732      |
 | timestamp  | int64   |    是    | 发送请求的毫秒时间戳          | 1706941836000          |
-| remark     | string  |    否    | 备注                    |                     |
+| type       | int     |    是    | 类型(必填) 1-转出 2-转入 | 1                   |
 | sign       | string  |    是    | 签名，详见签名规则        |                     |
 
 
@@ -269,10 +269,10 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 | 参数名       | 类型      | 是否必须 | 描述                | 示例值            |
 |-------------|---------|:----:|-------------------|------------------|
 | agent_id    | int64   |  是   | 运营商ID             | 1                |
-| token       | string  |  是   | 玩家token(玩家注入接口获取) | p47heuf32rhwiq   |
 | game_id     | int64   |  是   | 游戏ID              | 1                |
 | lang        | string  |  是   | 语系                | en_zh            |
 | timestamp   | int64   |  是   | 发送请求的毫秒时间戳          | 1706941836000       |
+| token       | string  |  是   | 玩家token(玩家注入接口获取) | p47heuf32rhwiq   |
 | sign        | string  |  是   | 签名，详见签名规则         |                  |
 
 ### 响应参数
@@ -311,14 +311,14 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 请求参数
 | 参数名        | 类型     | 是否必须 | 描述                     | 示例值         |
 |-------------|--------|:----:|------------------------|-------------|
-| agent_id    | int64  |  是   | 运营商ID                  | 1           |
-| start_time  | int64  |  是   | 开始毫秒时间戳                  | 1           |
-| end_time    | int64  |  是   | 结束毫秒时间戳                  | 1           |
 | account     | string |  是   | 玩家账号                   | 1           |
-| type        | int64  |  是   | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1           |
+| agent_id    | int64  |  是   | 运营商ID                  | 1           |
+| end_time    | int64  |  是   | 结束毫秒时间戳                  | 1           |
 | page        | int64  |  是   | 页数                     | 1           |
 | page_size   | int64  |  是   | 每页条数                   | 10          |
+| start_time  | int64  |  是   | 开始毫秒时间戳                  | 1           |
 | timestamp   | int64  |  是   | 发送请求的毫秒时间戳               | 1706941836000  |
+| type        | int64  |  是   | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1           |
 | sign        | string |  是   | 签名，详见签名规则              |             |
 
 ### 响应参数
@@ -381,17 +381,17 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 请求参数
 | 参数名        | 类型      | 是否必须 | 描述                     | 示例值         |
 |-------------|---------|:----:|------------------------|-------------|
-| agent_id    | int64   |  是   | 运营商ID                  | 1           |
-| start_time  | int64   |  是   | 开始毫秒时间戳                  | 1           |
-| end_time    | int64   |  是   | 结束毫秒时间戳                  | 1           |
 | account     | string  |  是   | 玩家账号                   | 1           |
-| order_id    | int64   |  是   | 对局号                    | 1           |
-| round_id    | int64   |  是   | 回合号                    | 1           |
+| agent_id    | int64   |  是   | 运营商ID                  | 1           |
+| end_time    | int64   |  是   | 结束毫秒时间戳                  | 1           |
 | game_id     | int64   |  是   | 游戏ID                   | 1           |
-| type        | int64   |  是   | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1           |
+| order_id    | int64   |  是   | 对局号                    | 1           |
 | page        | int64   |  是   | 页数                     | 1           |
 | page_size   | int64   |  是   | 每页条数                   | 10          |
+| round_id    | int64   |  是   | 回合号                    | 1           |
+| start_time  | int64   |  是   | 开始毫秒时间戳                  | 1           |
 | timestamp   | int64   |  是   | 发送请求的毫秒时间戳               | 1706941836000  |
+| type        | int64   |  是   | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1           |
 | sign        | string   |  是   | 签名，详见签名规则              |             |
 
 ### 响应参数
@@ -465,8 +465,8 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 请求参数
 | 参数名           | 类型      | 是否必须 | 描述                | 示例值           |
 |---------------|---------|:----:|-------------------|---------------|
-| agent_id      | int64   |  是   | 运营商ID            | 1             |
 | account       | string  |  是   | 玩家账号             | p47heuf32rhwi |
+| agent_id      | int64   |  是   | 运营商ID            | 1             |
 | timestamp     | int64   |  是   | 发送请求的毫秒时间戳        | 1706941836000    |
 | sign          | string  |  是   | 签名，详见签名规则       |               |
 
