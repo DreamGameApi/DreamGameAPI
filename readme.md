@@ -126,7 +126,6 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 |------------|---------|:--------:|-----------------------|---------------------|
 | agent_id   | int64   |    是    | 运营商ID               | 1                   |
 | account    | string  |    是    | 玩家账号                | p47heuf32rhwi      |
-| nickname   | string  |    是    | 玩家昵称                | Nickname11         |
 | type       | int     |    是    | 类型(必填) 1-转出 2-转入 | 1                   |
 | amount     | string  |    是    | 转入转出金额            | 127.22              |
 | t_order    | string  |    是    | 三方订单号              | O2024012268732      |
