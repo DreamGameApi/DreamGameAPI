@@ -75,8 +75,9 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 
 
 ### 错误码实际内容
-| Error Code | Description             | 错误代码 | 错误描述              |
+| Error Code | Error Message           | 错误码  | 错误信息              |
 |------------|-------------------------|---------|---------------------|
+| 200        | Success                 | 200     | 成功                  |
 | 400        | Failure                 | 400     | 失败                  |
 | 401        | Parameter Type Error    | 401     | 参数类型错误            |
 | 402        | Parameter Value Error   | 402     | 参数值错误             |
