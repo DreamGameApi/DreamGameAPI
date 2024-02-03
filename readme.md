@@ -66,11 +66,30 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 
 
 # 接口文档
-## 通用错误码与错误字符串
+## 通用错误接口
+### 错误码与错误字符串
 | 参数名           | 类型      | 描述                |
 |---------------|---------|-------------------|
 | error_code    | int     | 错误码               |
 | error_msg     | string  | 错误信息              |
+
+
+### 错误码实际内容
+| Error Code | Description             | 错误代码 | 错误描述              |
+|------------|-------------------------|---------|---------------------|
+| 400        | Failure                 | 400     | 失败                  |
+| 401        | Parameter Type Error    | 401     | 参数类型错误            |
+| 402        | Parameter Value Error   | 402     | 参数值错误             |
+| 403        | Agent Not Found         | 403     | 代理不存在              |
+| 404        | Agent Disabled          | 404     | 代理已禁用              |
+| 405        | Signature Error         | 405     | 签名错误               |
+| 406        | Account Not Found       | 406     | 账号不存在              |
+| 407        | Game Not Enabled        | 407     | 游戏未启用              |
+| 408        | Token Not Found or Expired | 408   | Token不存在或已过期     |
+| 409        | Player Disabled         | 409     | 玩家已禁用              |
+| 410        | No Available Game Domain | 410   | 无可用游戏域名           |
+| 500        | Internal Error          | 500     | 内部错误               |
+
 
 ## 玩家登录
 ### 接口概述
@@ -510,21 +529,6 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ```
 
 
-### 错误码
-| 错误代码 | 错误描述         |
-|------|--------------|
-| 400  | 失败           |
-| 401  | 参数类型错误       |
-| 402  | 参数值错误        |
-| 403  | 代理不存在        |
-| 404  | 代理已禁用        |
-| 405  | 签名错误         |
-| 406  | 账号不存在        |
-| 407  | 游戏未启用        |
-| 408  | Token不存在或已过期 |
-| 409  | 玩家已禁用        |
-| 410  | 无可用游戏域名      |
-| 500  | 内部错误         |
 
 # 游戏
 ## 游戏介绍
