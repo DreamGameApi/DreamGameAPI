@@ -407,8 +407,8 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 | round_id         | string  | 回合ID                 |
 | game_id          | string  | 游戏ID                 |
 | bet_time         | int     | 下注时间                 |
-| bet_amount       | float   | 下注金额                 |
-| payout_amount    | float   | 派彩金额                 |
+| bet_amount       | string  | 下注金额                 |
+| payout_amount    | string  | 派彩金额                 |
 | overage          | int     | 输赢金额                 |
 | status           | int     | 交易状态 1-未完成 2-已完成   |
 | currency_id      | int     | 币种ID                 |
