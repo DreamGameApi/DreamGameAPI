@@ -398,31 +398,21 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 ### 接口概述
 - 功能: 游戏订单
 - 请求方式: POST
-- 请求地址: /api/game/order
+- 请求地址: /api/game/orders
+- 备注：单次最多可以获取1分钟区间内所有订单数据，最大可不能超过10分钟，我方每分钟更新注单数据，请勿多次重复拉取
 ### 请求参数
 | 参数名        | 类型      | 是否必须 | 描述                     | 示例值         |
 |-------------|---------|:----:|------------------------|-------------|
-| account     | string  |  是   | 玩家账号                   | 1           |
 | agent_id    | int64   |  是   | 运营商ID                  | 1           |
-| end_time    | int64   |  是   | 结束毫秒时间戳                  | 1           |
-| game_id     | int64   |  是   | 游戏ID                   | 1           |
-| order_id    | int64   |  是   | 对局号                    | 1           |
-| page        | int64   |  是   | 页数                     | 1           |
-| page_size   | int64   |  是   | 每页条数                   | 10          |
-| round_id    | int64   |  是   | 回合号                    | 1           |
-| start_time  | int64   |  是   | 开始毫秒时间戳                  | 1           |
+| end_time    | int64   |  是   | 结束毫秒时间戳                  | 1706941866000 |
+| start_time  | int64   |  是   | 开始毫秒时间戳                  | 1706941836000 |
 | timestamp   | int64   |  是   | 发送请求的毫秒时间戳               | 1706941836000  |
-| type        | int64   |  是   | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1           |
 | sign        | string   |  是   | 签名，详见签名规则              |             |
 
 ### 响应参数
 | 参数名              | 类型      | 描述                   |
 |------------------|---------|----------------------|
-| page             | int64   | 页数                   |    
-| page_size        | int64   | 每页条数                 |
-| total            | int64   | 总条数                  |
-| total_page       | int64   | 总页数                  |
-| list             | array   | 列表数组                 |
+| data             | array   | 列表数组                 |
 | order_id         | string  | 订单ID                 |
 | round_id         | string  | 回合ID                 |
 | game_id          | string  | 游戏ID                 |
@@ -443,12 +433,7 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 {
     "error_code":200,
     "error_msg":"ok",
-    "data":{
-        "page":"1",
-        "page_size":"10",
-        "total":"37",
-        "total_page":"4",
-        "list":[
+    "data":[
           {
             "order_id": "O37432423",
             "round_id": "O37432423",
@@ -463,8 +448,7 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
             "is_buy_free": 1,
             "PlayerType": 1
           }
-        ]
-    }
+     ]
 }
 ```
 #### 请求失败
