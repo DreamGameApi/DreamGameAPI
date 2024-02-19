@@ -399,32 +399,32 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 - 功能: 游戏订单
 - 请求方式: POST
 - 请求地址: /api/game/orders
-- 备注：单次最少获取1分钟区间内所有订单数据，最大可不能超过10分钟，我方每分钟更新注单数据，请勿多次重复拉取
+- 备注：单次最少获取1分钟区间内所有订单数据，最大不能超过60分钟，我方每分钟更新注单数据，请勿多次重复拉取
 ### 请求参数
-| 参数名        | 类型      | 是否必须 | 描述                     | 示例值         |
-|-------------|---------|:----:|------------------------|-------------|
-| agent_id    | int64   |  是   | 运营商ID                  | 1           |
-| end_time    | int64   |  是   | 结束毫秒时间戳                  | 1706941866000 |
-| start_time  | int64   |  是   | 开始毫秒时间戳                  | 1706941836000 |
-| timestamp   | int64   |  是   | 发送请求的毫秒时间戳               | 1706941836000  |
-| sign        | string   |  是   | 签名，详见签名规则              |             |
+| 参数名         | 类型       | 是否必须 | 描述           | 示例值           |
+|-------------|----------|:----:|--------------|---------------|
+| agent_id    | int64    |  是   | 运营商ID        | 1             |
+| end_time    | int64    |  是   | 结束毫秒时间戳      | 1706941866000 |
+| start_time  | int64    |  是   | 开始毫秒时间戳      | 1706941836000 |
+| timestamp   | int64    |  是   | 发送请求的毫秒时间戳   | 1706941836000 |
+| sign        | string   |  是   | 签名，详见签名规则    |               |
 
 ### 响应参数
-| 参数名              | 类型      | 描述                   |
-|------------------|---------|----------------------|
-| data             | array   | 列表数组                 |
-| order_id         | string  | 订单ID                 |
-| round_id         | string  | 回合ID                 |
-| game_id          | string  | 游戏ID                 |
-| bet_time         | int     | 下注时间                 |
-| bet_amount       | string  | 下注金额                 |
-| payout_amount    | string  | 派彩金额                 |
-| overage          | int     | 输赢金额                 |
-| status           | int     | 交易状态 1-未完成 2-已完成   |
-| currency_id      | int     | 币种ID                 |
-| is_drop_off      | int     | 是否消除 0-否 1-是         |
-| is_buy_free      | int     | 是否购买免费 0-否 1-是     |
-| PlayerType       | int     | 玩家类型 0-正常 1-试玩     |
+| 参数名              | 类型     | 描述               |
+|------------------|--------|------------------|
+| data             | array  | 列表数组             |
+| order_id         | string | 订单ID             |
+| round_id         | string | 回合ID             |
+| game_id          | string | 游戏ID             |
+| bet_time         | int    | 下注时间             |
+| bet_amount       | string | 下注金额             |
+| payout_amount    | string | 派彩金额             |
+| overage          | int    | 输赢金额             |
+| status           | int    | 交易状态 1-未完成 2-已完成 |
+| currency_id      | int    | 币种ID             |
+| is_drop_off      | int    | 是否消除 0-否 1-是     |
+| is_buy_free      | int    | 是否购买免费 0-否 1-是   |
+| PlayerType       | int    | 玩家类型 0-正常 1-试玩   |
 
 
 ### 响应实例
