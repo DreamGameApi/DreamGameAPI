@@ -415,6 +415,7 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 | data             | array  | 列表数组             |
 | order_id         | string | 订单ID             |
 | round_id         | string | 回合ID             |
+| bet_id           | string | 注单ID (订单ID+回合ID), 唯一ID|
 | game_id          | string | 游戏ID             |
 | bet_time         | int    | 下注时间             |
 | bet_amount       | string | 下注金额             |
@@ -435,10 +436,11 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
     "error_msg":"ok",
     "data":[
           {
-            "order_id": "O37432423",
-            "round_id": "O37432423",
+            "order_id": "5-1709255839-NAMQ1ANSS",
+            "round_id": "O374332423",
+            "bet_id" : "5-1709255839-NAMQ1ANSS-O374332423",
             "game_id": "1",
-            "bet_time": 1705903529,
+            "bet_time": 1706941836000,
             "bet_amount": "1.00",
             "payout_amount": "0.00",
             "overage": "1.00",
