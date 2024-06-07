@@ -410,22 +410,24 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 | sign        | string   |  是   | 签名，详见签名规则    |               |
 
 ### 响应参数
-| 参数名              | 类型     | 描述               |
-|------------------|--------|------------------|
-| data             | array  | 列表数组             |
-| order_id         | string | 订单ID             |
-| round_id         | string | 回合ID             |
-| bet_id           | string | 注单ID (订单ID+回合ID), 唯一ID|
-| game_id          | string | 游戏ID             |
-| bet_time         | int    | 下注时间             |
-| bet_amount       | string | 下注金额             |
-| payout_amount    | string | 派彩金额             |
-| overage          | int    | 输赢金额             |
-| status           | int    | 交易状态 1-未完成 2-已完成 |
-| currency_id      | int    | 币种ID             |
-| is_drop_off      | int    | 是否消除 0-否 1-是     |
-| is_buy_free      | int    | 是否购买免费 0-否 1-是   |
-| PlayerType       | int    | 玩家类型 0-正常 1-试玩   |
+| 参数名              | 类型     | 描述                     |
+|------------------|--------|------------------------|
+| data             | array  | 列表数组                   |
+| order_id         | string | 订单ID                   |
+| parent_bet_id    | string | 父ID                    |
+| ref_id           | string | RefID                  |
+| round_id         | string | 回合ID                   |
+| bet_id           | string | 注单ID (订单ID+回合ID), 唯一ID |
+| game_id          | string | 游戏ID                   |
+| bet_time         | int    | 下注时间                   |
+| bet_amount       | string | 下注金额                   |
+| payout_amount    | string | 派彩金额                   |
+| overage          | int    | 输赢金额                   |
+| status           | int    | 交易状态 1-未完成 2-已完成       |
+| currency_id      | int    | 币种ID                   |
+| is_drop_off      | int    | 是否消除 0-否 1-是           |
+| is_buy_free      | int    | 是否购买免费 0-否 1-是         |
+| PlayerType       | int    | 玩家类型 0-正常 1-试玩         |
 
 
 ### 响应实例
@@ -437,6 +439,8 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
     "data":[
           {
             "order_id": "5-1709255839-NAMQ1ANSS",
+            "parent_bet_id": "17176457141975900008",
+            "ref_id": "17176457141975900008",
             "round_id": "O374332423",
             "bet_id" : "5-1709255839-NAMQ1ANSS-O374332423",
             "game_id": "1",
