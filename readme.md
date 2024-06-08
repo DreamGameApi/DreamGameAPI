@@ -46,51 +46,108 @@
 举例：
 假设传送的参数如下：
 ```
-agent_id： 2
-account： 888888
-nickname： 12321321
-type： 1
-ip： 127
-timestamp：1706941836000
+agent_id  : 2
+account   : dg888888
+nickname  : harry
+type      : 1
+ip        : 127.0.0.1
+timestamp ：1706941836000
 ```
 
 对参数按照key=value的格式，并按照参数名ASCII字典序排序如下：
 ```go
-stringA="agent_id=2&account=888888&nickname=12321321&type=1&ip=127&timestamp=1706941836000";
+stringA = "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
 ```
 
 拼接API密钥：
 ```go
-stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥key
+stringSignTemp = stringA + "&key=api_key" //注：api_key为后台设置的密钥key
 ```
 
+假设密钥是: b9697969749da2ff0b0057f363641eda
+```go
+// GO 
+api_key := "b9697969749da2ff0b0057f363641eda"
+stringA := "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
+stringSignTemp := stringA + "&key=" + api_key 
+// account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1&key=b9697969749da2ff0b0057f363641eda
 
+ // 计算 MD5 哈希值
+hash := md5.New()
+hash.Write([]byte(stringSignTemp))
+hashInBytes := hash.Sum(nil) // 这将返回一个长度为 16 的字节数组
+
+// 将字节数组转换为十六进制字符串
+hashString := strings.ToUpper(hex.EncodeToString(hashInBytes))
+// fmt.Println(hashString)
+// hashString == EE40BB30DC08A6A7B59361DD5959E392
+```
+
+```java
+// JAVA
+String apiKey = "b9697969749da2ff0b0057f363641eda";
+String stringA = "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
+String stringSignTemp = stringA + "&key=" + apiKey;
+
+try {
+    // Create MD5 Hash
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    md.update(stringSignTemp.getBytes(StandardCharsets.UTF_8));
+    byte[] hashInBytes = md.digest();
+
+    // Convert byte array into signum representation
+    StringBuilder sb = new StringBuilder();
+    for (byte b : hashInBytes) {
+        sb.append(String.format("%02x", b));
+    }
+    String hashString = sb.toString().toUpperCase(); // 转换为大写形式
+
+    // Output the hashString
+    // System.out.println(hashString);  // EE40BB30DC08A6A7B59361DD5959E392
+} catch (NoSuchAlgorithmException e) {
+    e.printStackTrace();
+}
+```        
+```php
+<?php
+$apiKey = "b9697969749da2ff0b0057f363641eda";
+$stringA = "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
+$stringSignTemp = $stringA . "&key=" . $apiKey;
+
+// 计算 MD5 哈希值并转换为大写形式
+$hashString = strtoupper(md5($stringSignTemp));
+
+echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
+?>
+```
 
 # 接口文档
 ## 通用错误接口
 ### 错误码与错误字符串
-| 参数名           | 类型      | 描述                |
-|---------------|---------|-------------------|
-| error_code    | int     | 错误码               |
-| error_msg     | string  | 错误信息              |
+| 参数名       | 类型    | 描述    |
+|--------------|---------|---------|
+| error_code   | int     | 错误码  |
+| error_msg    | string  | 错误信息 |
+
 
 
 ### 错误码实际内容
-| Error Code | Error Message           | 错误码  | 错误信息              |
-|------------|-------------------------|---------|---------------------|
-| 200        | Success                 | 200     | 成功                  |
-| 400        | Failure                 | 400     | 失败                  |
-| 401        | Parameter Type Error    | 401     | 参数类型错误            |
-| 402        | Parameter Value Error   | 402     | 参数值错误             |
-| 403        | Agent Not Found         | 403     | 代理不存在              |
-| 404        | Agent Disabled          | 404     | 代理已禁用              |
-| 405        | Signature Error         | 405     | 签名错误               |
-| 406        | Account Not Found       | 406     | 账号不存在              |
-| 407        | Game Not Enabled        | 407     | 游戏未启用              |
-| 408        | Token Not Found or Expired | 408   | Token不存在或已过期     |
-| 409        | Player Disabled         | 409     | 玩家已禁用              |
-| 410        | No Available Game Domain | 410   | 无可用游戏域名           |
-| 500        | Internal Error          | 500     | 内部错误               |
+| Error Code | Error Message                | 错误码 | 错误信息                   |
+|------------|------------------------------|--------|----------------------------|
+| 200        | Success                      | 200    | 成功                       |
+| 400        | Failure                      | 400    | 失败                       |
+| 401        | Parameter Type Error         | 401    | 参数类型错误               |
+| 402        | Parameter Value Error        | 402    | 参数值错误                 |
+| 403        | Agent Not Found              | 403    | 代理不存在                 |
+| 404        | Agent Disabled               | 404    | 代理已禁用                 |
+| 405        | Signature Error              | 405    | 签名错误                   |
+| 406        | Account Not Found            | 406    | 账号不存在                 |
+| 407        | Game Not Enabled             | 407    | 游戏未启用                 |
+| 408        | Token Not Found or Expired   | 408    | Token不存在或已过期        |
+| 409        | Player Disabled              | 409    | 玩家已禁用                 |
+| 410        | No Available Game Domain     | 410    | 无可用游戏域名             |
+| 500        | Internal Error               | 500    | 内部错误                   |
+
 
 
 ## 玩家登录
@@ -99,15 +156,27 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 - 请求方式: POST
 - 请求地址: /api/player/login
 ### 请求参数
-| 参数名     | 类型   | 是否必须 | 描述                                | 示例值          |
-|------------|--------|:--------:|-----------------------------------|-----------------|
-| account    | string |    是    | 玩家账号                            | p47heuf32rhwi  |
-| agent_id   | int64  |    是    | 运营商ID                            | 1               |
-| ip         | string |    否    | 玩家IP                              | 127.0.0.1       |
-| nickname   | string |    否    | 玩家昵称                            | Nickname11      |
-| timestamp  | int64  |    是    | 发送请求的毫秒时间戳                      | 1706941836000      |
-| type       | int    |    是    | 玩家类型 0-正常玩家 1-试玩玩家(必填) | 1               |
-| sign       | string |    是    | 签名，详见签名规则                    |                 |
+| 参数名    | 类型   | 是否必须 | 描述                                 | 示例值         |
+|-----------|--------|:--------:|--------------------------------------|---------------|
+| account   | string |    是    | 玩家账号                             | p47heuf32rhwi |
+| agent_id  | int    |    是    | 运营商ID                             | 1             |
+| ip        | string |    否    | 玩家IP                               | 127.0.0.1     |
+| nickname  | string |    否    | 玩家昵称                             | Nickname11    |
+| timestamp | int64  |    是    | 发送请求的毫秒时间戳                   | 1706941836000 |
+| type      | int    |    是    | 玩家类型 1-正常 2-红利 3-试玩        | 1             |
+| sign      | string |    是    | 签名，详见签名规则                   |               |
+``` json
+{
+    "account": "p47heuf32rhwi",
+    "agent_id": 1,
+    "ip": "127.0.0.1",
+    "nickname": "Nickname11",
+    "timestamp": 1706941836000,
+    "type": 1,
+    "sign": ""
+}
+```
+
 
 
 ### 响应参数
@@ -410,52 +479,49 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 | sign        | string   |  是   | 签名，详见签名规则    |               |
 
 ### 响应参数
-| 参数名              | 类型     | 描述                     |
-|------------------|--------|------------------------|
-| data             | array  | 列表数组                   |
-| order_id         | string | 订单ID                   |
-| parent_bet_id    | string | 父ID                    |
-| ref_id           | string | RefID                  |
-| round_id         | string | 回合ID                   |
-| bet_id           | string | 注单ID (订单ID+回合ID), 唯一ID |
-| game_id          | string | 游戏ID                   |
-| bet_time         | int    | 下注时间                   |
-| bet_amount       | string | 下注金额                   |
-| payout_amount    | string | 派彩金额                   |
-| overage          | int    | 输赢金额                   |
-| status           | int    | 交易状态 1-未完成 2-已完成       |
-| currency_id      | int    | 币种ID                   |
-| is_drop_off      | int    | 是否消除 0-否 1-是           |
-| is_buy_free      | int    | 是否购买免费 0-否 1-是         |
-| PlayerType       | int    | 玩家类型 0-正常 1-试玩         |
+| 参数名           | 类型    | 描述                             |
+|------------------|---------|----------------------------------|
+| list             | array   | 列表数组                         |
+
+#### 数据内容
+| 参数名           | 类型    | 描述                             |
+|------------------|---------|----------------------------------|
+| parent_bet_id    | string  | 父单ID                             |
+| ref_id           | string  | 订单ID                            |
+| round_id         | string  | 回合ID                           |
+| game_id          | string  | 游戏ID                           |
+| bet_time         | int     | 下注时间毫秒时间戳                 |
+| bet_amount       | string  | 下注金额                         |
+| payout_amount    | string  | 派彩金额                         |
+| overage          | string  | 输赢金额                         |
+| status           | int     | 交易状态 1-未完成 2-已完成       |
+| currency_id      | int     | 币种ID                           |
 
 
 ### 响应实例
 #### 请求成功
 ```json
 {
-    "error_code":200,
-    "error_msg":"ok",
-    "data":[
-          {
-            "order_id": "5-1709255839-NAMQ1ANSS",
-            "parent_bet_id": "17176457141975900008",
-            "ref_id": "17176457141975900008",
-            "round_id": "O374332423",
-            "bet_id" : "5-1709255839-NAMQ1ANSS-O374332423",
-            "game_id": "1",
-            "bet_time": 1706941836000,
-            "bet_amount": "1.00",
-            "payout_amount": "0.00",
-            "overage": "1.00",
-            "status": 1,
-            "currency_id": 1,
-            "is_drop_off": 1,
-            "is_buy_free": 1,
-            "PlayerType": 1
-          }
-     ]
+    "error_code": 200,
+    "error_msg": "ok",
+    "data": {
+        "list": [
+            {                
+                "parent_bet_id": "17176457141975900008",
+                "ref_id": "17176457141975900008",
+                "round_id": "O374332423",
+                "game_id": "1",
+                "bet_time": 1706941836000,
+                "bet_amount": "1.00",
+                "payout_amount": "0.00",
+                "overage": "1.00",
+                "status": 1,
+                "currency_id": 1,              
+            }
+        ]
+    }
 }
+
 ```
 #### 请求失败
 
@@ -526,24 +592,26 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 - 请求方式: POST
 - 请求地址: /api/transfer/check
 ### 请求参数
-| 参数名       | 类型       | 是否必须 | 描述           | 示例值          |
-|-----------|----------|:----:|--------------|--------------|
-| agent_id  | int64    |  是   | 运营商ID        | 1            |
-| t_order   | string   |  是   | 第三方订单号       | O38674837624 |
-| timestamp | int64    |  是   | 发送请求的时间戳     | 1626863144   |
-| sign      | string   |  是   | 签名，详见签名规则    |              |
+| 参数名     | 类型   | 是否必须 | 描述           | 示例值          |
+|------------|--------|:--------:|----------------|-----------------|
+| agent_id   | int64  |    是    | 运营商ID       | 1               |
+| t_order    | string |    是    | 第三方订单号   | O38674837624    |
+| timestamp  | int64  |    是    | 发送请求的时间戳 | 1626863144      |
+| sign       | string |    是    | 签名，详见签名规则 |                |
+
 
 ### 响应参数
-| 参数名           | 类型     | 描述                |
-|---------------|--------|-------------------|
-| error_code    | int    | 错误码               |
-| error_msg     | string | 错误信息              |
-| t_order       | string | 第三方订单号            |
-| is_exit       | int    | 是否存在 1：是   0：否    |
-| status        | int    | 订单状态 1：完成   0：未完成 |
-| amount        | string | 转账金额              |
-| before_amount | string | 转账前金额             |
-| after_amount  | string | 转账后金额             |
+| 参数名           | 类型    | 描述                  |
+|------------------|---------|-----------------------|
+| error_code       | int     | 错误码                |
+| error_msg        | string  | 错误信息              |
+| t_order          | string  | 第三方订单号           |
+| is_exit          | int     | 是否存在 1：是 0：否    |
+| status           | int     | 订单状态 1：完成 0：未完成 |
+| amount           | string  | 转账金额              |
+| before_amount    | string  | 转账前金额             |
+| after_amount     | string  | 转账后金额             |
+
 
 ### 响应实例
 #### 请求成功
@@ -575,21 +643,21 @@ stringSignTemp=stringA + "&key=api_key" //注：api_key为后台设置的密钥k
 
 # 游戏
 ## 游戏介绍
-| 游戏ID | 游戏名称        | 英文名称                      | 题材   | 简介                      |
-|------|-------------|---------------------------|------|-------------------------|
-| 2    | 麻将胡了        | Mahjong Ways              | 麻将   | 24小时麻将馆/10万倍            |
-| 4    | 财神来了        | God of Wealth             | 财神   | 中路连消百搭有机会赢更多            |
-| 5    | 赏金猎人        | Bounty Hunter             | 西部   | 高达X40赢奖倍数               |
-| 6    | 招财喵         | Lucky Neko                | 奇幻   | 赢特色招财猫符号，送递增奖金倍数        |
-| 7    | 寻宝黄金城       | Treasures of Aztec        | 探险   | 多路连消百搭                  |
-| 8    | 神鸟报恩        | Divine Bird Returns       | 越南神话 | 杨桃变金币，高达X16200          |
-| 9    | 虎虎生财        | Fortune Tiger             | 奇幻   | 重新旋转和X10奖金倍数！           |
-| 10   | 热带雨林        | Rain Forest               | 动物   | 无线卷轴递增奖金倍数              |
-| 11   | 亡灵大盗        | Wild Bandito              | 奇幻   | 递增式奖金倍数和中轴的金框符号         |
-| 12   | 山精水精        | Mountain God vs Water God | 越南神话 | 多种玩法超高倍数，战斗奖金高高高！       |
-| 13   | 淘金者         | Gold Rush                 | 探险   | 收集符号触发多种模式，巨龙获得高额奖励！    |
-| 14   | 冰雪大冲关       | The Great Icescape        | 动物   | 破冰行动赢取X50000倍投注奖励       |
-| 15   | 金球射手        | Ultimate Striker          | 足球   | 编入多路连消百搭，增加奖金倍数最高X8000倍 |
-| 16   | 众神宙斯        | 无                         | 北欧神话 | 无                       |
-| 17   | 热血欧洲杯       | 无                         | 足球   | 无                       |
-| 18   | 狂欢音乐节       | 无                         | 音乐   | 无                       |
+| 游戏ID | 游戏名称          | 英文名称                  | 题材     | 简介                          |
+|--------|-----------------|-------------------------|----------|-----------------------------|
+| 2      | 麻将胡了          | Mahjong Ways            | 麻将     | 24小时麻将馆/10万倍             |
+| 4      | 财神来了          | Cai Shen Ways           | 财神     | 中路连消百搭有机会赢更多         |
+| 5      | 赏金猎人          | Bounty Hunter           | 西部     | 高达X40赢奖倍数                |
+| 6      | 招财喵            | Lucky Neko              | 奇幻     | 赢特色招财猫符号，送递增奖金倍数  |
+| 7      | 寻宝黄金城        | Treasures of Aztec      | 探险     | 多路连消百搭                    |
+| 8      | 神鸟报恩          | Divine Bird Returns     | 越南神话 | 杨桃变金币，高达X16200          |
+| 9      | 虎虎生财          | Fortune Tiger           | 奇幻     | 重新旋转和X10奖金倍数！         |
+| 10     | 热带雨林          | Rain Forest             | 动物     | 无线卷轴递增奖金倍数             |
+| 11     | 亡灵大盗          | Wild Bandito            | 奇幻     | 递增式奖金倍数和中轴的金框符号    |
+| 12     | 山精水精          | Mountain Lord VS Sea Lord | 越南神话 | 多种玩法超高倍数，战斗奖金高高高！ |
+| 13     | 淘金者            | Gold Rush               | 探险     | 收集符号触发多种模式，巨龙获得高额奖励！ |
+| 14     | 冰雪大冲关        | The Great Icescape      | 动物     | 破冰行动赢取X50000倍投注奖励     |
+| 15     | 金球射手          | Ultimate Striker        | 足球     | 编入多路连消百搭，增加奖金倍数最高X8000倍 |
+| 16     | 众神宙斯          | Zeus Power Link         | 北欧神话 | Feature Multiplier symbols and Free Spins feature |
+| 17     | 热血欧洲杯        | Passionate European Cup | 足球     | Feature a multipying Wild symbol and Free Spin collection prize pool mode |
+| 18     | 狂欢音乐节        | Music Festival          | 音乐     | Feature increasing Multipliers and Bonus Game |
