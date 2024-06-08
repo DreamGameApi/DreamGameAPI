@@ -46,12 +46,12 @@
 举例：
 假设传送的参数如下：
 ```
-agent_id  : 2
-account   : dg888888
-nickname  : harry
-type      : 1
-ip        : 127.0.0.1
-timestamp ：1706941836000
+agent_id : 2
+account  : dg888888
+nickname : harry
+type     : 1
+ip       : 127.0.0.1
+timestamp: 1706941836000
 ```
 
 对参数按照key=value的格式，并按照参数名ASCII字典序排序如下：
@@ -67,9 +67,9 @@ stringSignTemp = stringA + "&key=api_key" //注：api_key为后台设置的密�
 假设密钥是: b9697969749da2ff0b0057f363641eda
 ```go
 // GO 
-api_key := "b9697969749da2ff0b0057f363641eda"
-stringA := "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
-stringSignTemp := stringA + "&key=" + api_key 
+api_key        := "b9697969749da2ff0b0057f363641eda"
+stringA        := "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
+stringSignTemp := stringA + "&key=" + api_key
 // account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1&key=b9697969749da2ff0b0057f363641eda
 
  // 计算 MD5 哈希值
@@ -85,8 +85,8 @@ hashString := strings.ToUpper(hex.EncodeToString(hashInBytes))
 
 ```java
 // JAVA
-String apiKey = "b9697969749da2ff0b0057f363641eda";
-String stringA = "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
+String apiKey         = "b9697969749da2ff0b0057f363641eda";
+String stringA        = "account=dg888888&agent_id=2&ip=127.0.0.1&nickname=harry&timestamp=1706941836000&type=1";
 String stringSignTemp = stringA + "&key=" + apiKey;
 
 try {
@@ -167,13 +167,13 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 | sign      | string |    是    | 签名，详见签名规则                   |               |
 ``` json
 {
-    "account": "p47heuf32rhwi",
-    "agent_id": 1,
-    "ip": "127.0.0.1",
-    "nickname": "Nickname11",
+    "account"  : "p47heuf32rhwi",
+    "agent_id" : 1,
+    "ip"       : "127.0.0.1",
+    "nickname" : "Nickname11",
     "timestamp": 1706941836000,
-    "type": 1,
-    "sign": ""
+    "type"     : 1,
+    "sign"     : ""
 }
 ```
 
@@ -188,10 +188,10 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 #### 请求成功
 ```json
 {
-    "error_code":200,
-    "error_msg":"ok",
-    "data":{
-        "token":"ddec96d2165e4f3e8a642057db116983"
+    "error_code": 200,
+    "error_msg" : "ok",
+    "data"      : {
+        "token": "ddec96d2165e4f3e8a642057db116983"
     }
 }
 ```
@@ -200,9 +200,9 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 
 ```json
 {
-    "error_code":401,
-    "error_msg":"参数类型错误",
-    "data":{}
+    "error_code": 401,
+    "error_msg" : "参数类型错误",
+    "data"      : {}
 }
 ```
 
@@ -217,11 +217,25 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 | account    | string  |    是    | 玩家账号                | p47heuf32rhwi      |
 | agent_id   | int64   |    是    | 运营商ID               | 1                   |
 | amount     | string  |    是    | 转入转出金额            | 127.22              |
-| remark     | string  |    否    | 备注                    |                     |
+| remark     | string  |    否    | 备注                    | 备注                    |
 | t_order    | string  |    是    | 三方订单号              | O2024012268732      |
 | timestamp  | int64   |    是    | 发送请求的毫秒时间戳          | 1706941836000          |
 | type       | int     |    是    | 类型(必填) 1-转出 2-转入 | 1                   |
 | sign       | string  |    是    | 签名，详见签名规则        |                     |
+
+```json
+{
+    "account"  : "p47heuf32rhwi",
+    "agent_id" : 1,
+    "amount"   : "127.22",
+    "remark"   : "备注",
+    "t_order"  : "O2024012268732",
+    "timestamp": 1706941836000,
+    "type"     : 1,
+    "sign"     : ""
+}
+```
+
 
 
 ### 响应参数
@@ -232,7 +246,7 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 | t_order_number | string   | 三方订单号               |
 | create_time    | int64    | 创建时间                |
 | account        | string   | 玩家账号                |
-| account_type   | int64    | 玩家类型 0-正常 1-试玩     |
+| type           | int      | 玩家类型 1-正常 2-红利 3-试玩        | 
 | amount         | string   | 转账金额                |
 | before_amount  | string   | 转账前金额               |
 | after_amount   | string   | 转账后金额               |
@@ -245,21 +259,21 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 #### 请求成功
 ```json
 {
-    "error_code":200,
-    "error_msg":"ok",
-    "data":{
-        "agent_id":"1",
-        "order_number":"12342342",
-        "t_order_number":"134242342",
-        "create_time":"1705903529",
-        "account":"1234523",
-        "account_type":"1",
-        "amount":"1.00",
-        "before_amount":"0.00",
-        "after_amount":"1.00",
-        "type":"2",
-        "currency_id":"1",
-        "remark":""
+    "error_code": 200,
+    "error_msg": "ok",
+    "data": {
+        "agent_id"      : 1,
+        "order_number"  : "17178332560293803578",
+        "t_order_number": "O2024012268732",
+        "create_time"   : 1717830218000,
+        "account"       : "official_144335",
+        "account_type"  : 1,
+        "amount"        : "100.00",
+        "before_amount" : "0.00",
+        "after_amount"  : "100.00",
+        "type"          : 2,
+        "currency_id"   : 1,
+        "remark"        : "备注"
     }
 }
 ```
@@ -268,9 +282,9 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
 
 ```json
 {
-    "error_code":401,
-    "error_msg":"参数类型错误",
-    "data":{}
+    "error_code": 401,
+    "error_msg" : "参数类型错误",
+    "data"      : {}
 }
 ```
 
@@ -317,23 +331,23 @@ echo $hashString; // 输出: EE40BB30DC08A6A7B59361DD5959E392
     "error_code":200,
     "error_msg":"ok",
     "data":{
-        "page":"1",
-        "page_size":"10",
-        "total":"37",
-        "total_page":"4",
-        "list":[
+        "page"      : "1",
+        "page_size" : "10",
+        "total"     : "37",
+        "total_page": "4",
+        "list"      : [
           {
-            "game_id": 1,
+            "game_id"  : 1,
             "game_name": "大富豪",
             "sub_title": "BIG",
-            "cover": "aaa.jpg",
-            "icon": "bbb.jpg",
-            "status": 1,
-            "tag": 1,
-            "category": 1,
+            "cover"    : "aaa.jpg",
+            "icon"     : "bbb.jpg",
+            "status"   : 1,
+            "tag"      : 1,
+            "category" : 1,
             "game_type": 1,
-            "volatile": 1,
-            "theme": 1
+            "volatile" : 1,
+            "theme"    : 1
           }
         ]
     }
